@@ -1,0 +1,33 @@
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole
+    image: pihole:latest
+    build: .
+    pull_policy: never
+    network_mode: host
+    environment:
+      TZ: 'America/New_York'
+      DNSMASQ_LISTENING: 'all'
+      PIHOLE_DNS_: "192.168.2.1#53"
+      DNS_BOGUS_PRIV: "true"
+      DNS_FQDN_REQUIRED: "true"
+      DHCP_ACTIVE: "false"
+      DHCP_START: "192.168.2.201"
+      DHCP_END: "192.168.2.251"
+      DHCP_ROUTER: "192.168.2.1"
+      DHCP_LEASETIME: "1"
+      PIHOLE_DOMAIN: "tblake.org"
+      TEMPERATUREUNIT: "f"
+      QUERY_LOGGING: "false"
+      WEBTHEME: "default-darker"
+      FTLCONF_BLOCKINGMODE: "NULL"
+      FTLCONF_RATE_LIMIT: "1000/60"
+      FTLCONF_PRIVACYLEVEL: "0"
+      WEBPASSWORD: "changeme"
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
