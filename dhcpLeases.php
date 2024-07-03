@@ -15,7 +15,6 @@
 //	3 - output csv table
 //	4 - the raw dhcp.leases file
 // noDate - supresses date in output
-//
 
 $leaseFile="/etc/pihole/dhcp.leases";
 
